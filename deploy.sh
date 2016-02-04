@@ -6,9 +6,7 @@ DB_CONTAINER_NAME='odkdb'
 AGGREGATE_CONTAINER_NAME='aggregate'
 
 if [ -f ./secrets.sh ]; then
-  echo "source secrets"
   source ./secrets.sh
-  echo $MYSQL_PASSWORD
 fi
 
 if [ $(docker ps -aq --filter "name=$DB_CONTAINER_NAME") ]; then
@@ -29,7 +27,7 @@ ODK_DB_HOST_PATH=$ODK_DB_HOST_PATH
 if [ $ODK_DB_HOST_PATH == "" ]; then
   ODK_DB_HOST_PATH="~/data"
 fi
-echo "ODK_DB_HOST_PATH=$ODK_DB_HOST_PATH"
+
 if [ ! -d $ODK_DB_HOST_PATH ]; then
   echo "Creating host database storage path - $ODK_DB_HOST_PATH"
   mkdir -p $ODK_DB_HOST_PATH
@@ -52,4 +50,4 @@ docker run -d --name $AGGREGATE_CONTAINER_NAME \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
   -e ODK_HOSTNAME=$ODK_HOSTNAME \
   -e ODK_ADMIN_USERNAME=$ODK_ADMIN_USERNAME \
-  odkaggregate:latest
+  kharatsa/odkaggregate:latest
