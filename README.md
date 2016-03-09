@@ -24,4 +24,4 @@ The ODK host and port should correspond to the visible address of the server. If
 * ODK_ADMIN_USERNAME (default password="aggregate")
 * ODK_AUTH_REALM (optional, default="ODK Aggregate")
 * AGGREGATE_CONTAINER_NAME (optional, default="aggregate")
-* DB_CONTAINER_NAME (optional, default="odkdb")
+* DB_CONTAINER_NAME
