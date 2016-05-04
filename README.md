@@ -15,9 +15,13 @@ The MySQL Docker [repository](https://hub.docker.com/_/mysql/) covers these envi
 * MYSQL_DATABASE
 
 ## ODK Aggregate environment variables
+The ODK host and port should correspond to the visible address of the server. If Aggregate is behind a reverse proxy, the hostname, protocol, and port should match the reverse proxy settings.
+
 * ODK_HOSTNAME
+* ODK_PORT (optional, default="8080")
+* ODK_PORT_SECURE (optional, default="8443")
 * ODK_ADMIN_USER (optional)
-* ODK_ADMIN_USERNAME (default password = "aggregate")
-* ODK_AUTH_REALM (optional, default=ODK Aggregate)
-* AGGREGATE_CONTAINER_NAME (optional, default=aggregate)
-* DB_CONTAINER_NAME (optional, default=odkdb)
+* ODK_ADMIN_USERNAME (default password="aggregate")
+* ODK_AUTH_REALM (optional, default="ODK Aggregate")
+* AGGREGATE_CONTAINER_NAME (optional, default="aggregate")
+* DB_CONTAINER_NAME
