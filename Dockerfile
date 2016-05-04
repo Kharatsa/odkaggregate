@@ -21,7 +21,6 @@ RUN curl -OL https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-jav
     && cp mysql-connector-java-$CONNECTORJ_VERSION/mysql-connector-java-${CONNECTORJ_VERSION}-bin.jar ${CATALINA_HOME}/lib/ \
     && rm -rf  mysql-connector-java-${CONNECTORJ_VERSION}/ mysql-connector-java-${CONNECTORJ_VERSION}.tar.gz
 
-COPY ./tomcat-users-template.xml /tomcat-users-template.xml
 COPY ./run.sh /run.sh
 COPY ./ODKAggregate.war /ODKAggregate.war
 RUN chmod +x /run.sh

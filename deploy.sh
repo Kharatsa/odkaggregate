@@ -33,7 +33,7 @@ if [ ! -d $ODK_DB_HOST_PATH ]; then
   mkdir -p $ODK_DB_HOST_PATH
 fi
 
-docker run -d --name $DB_CONTAINER_NAME \
+docker run -d --name=$DB_CONTAINER_NAME \
   -v $ODK_DB_HOST_PATH:/var/lib/mysql \
   -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
   -e MYSQL_DATABASE=$MYSQL_DATABASE \
@@ -41,13 +41,15 @@ docker run -d --name $DB_CONTAINER_NAME \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
   mysql:5.7
 
-docker run -d --name $AGGREGATE_CONTAINER_NAME \
+docker run -d --name=$AGGREGATE_CONTAINER_NAME \
   --link $DB_CONTAINER_NAME \
+  --restart on-failure:10 \
   -p 8080:8080 \
   -e DB_CONTAINER_NAME=$DB_CONTAINER_NAME \
   -e MYSQL_DATABASE=$MYSQL_DATABASE \
   -e MYSQL_USER=$MYSQL_USER \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
+  -e ODK_PORT=$ODK_PORT \
+  -e ODK_PORT_SECURE=$ODK_PORT_SECURE \
   -e ODK_HOSTNAME=$ODK_HOSTNAME \
-  -e ODK_ADMIN_USERNAME=$ODK_ADMIN_USERNAME \
   kharatsa/odkaggregate:latest
