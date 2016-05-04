@@ -28,25 +28,25 @@ if [ ! -f /finished-setup ]; then
 
   echo "---- Modifying ODK Aggregate security.properties ----"
   echo "Updating security.server.port"
-  sed -i -E "s/^(security.server.port=)([0-9]+)/\1$ODK_PORT/gm" security.properties
+  sed -i -E "s|^(security.server.port=)([0-9]+)|\1$ODK_PORT|gm" security.properties
   echo "Updating security.server.securePort"
-  sed -i -E "s/^(security.server.securePort=)([0-9]+)/\1$ODK_PORT_SECURE/gm" security.properties
+  sed -i -E "s|^(security.server.securePort=)([0-9]+)|\1$ODK_PORT_SECURE|gm" security.properties
   echo "Updating security.server.hostname"
-  sed -i -E "s/^(security.server.hostname=)([A-Za-z\.0-9]+)/\1$ODK_HOSTNAME/gm" security.properties
+  sed -i -E "s|^(security.server.hostname=)([A-Za-z\.0-9]+)|\1$ODK_HOSTNAME|gm" security.properties
   echo "Updating security.server.superUser"
-  sed -i -E "s/^(security.server.superUser=).*/\1$ODK_ADMIN_USER/gm" security.properties
+  sed -i -E "s|^(security.server.superUser=).*|\1$ODK_ADMIN_USER|gm" security.properties
   echo "Updating security.server.superUserUsername"
-  sed -i -E "s/^(security.server.superUserUsername=).*/\1$ODK_ADMIN_USERNAME/gm" security.properties
+  sed -i -E "s|^(security.server.superUserUsername=).*|\1$ODK_ADMIN_USERNAME|gm" security.properties
   echo "Updating security.server.realm.realmString"
-  sed -i -E "s/^(security.server.realm.realmString=).*/\1$ODK_AUTH_REALM/gm" security.properties
+  sed -i -E "s|^(security.server.realm.realmString=).*|\1$ODK_AUTH_REALM|gm" security.properties
   cp security.properties ~/
 
   echo "---- Modifying ODK Aggregate jdbc.properties ----"
   sed -i -E "s|^(jdbc.url=jdbc:mysql://).+(\?autoDeserialize=true)|\1$DB_CONTAINER_NAME/$MYSQL_DATABASE\2|gm" jdbc.properties
   sed -i -E "s|^(jdbc.url=jdbc:mysql:///)(.+)(\?autoDeserialize=true)|\1""\3|gm" jdbc.properties
-  sed -i -E "s/^(jdbc.schema=).*/\1$MYSQL_DATABASE/gm" jdbc.properties
-  sed -i -E "s/^(jdbc.username=).*/\1$MYSQL_USER/gm" jdbc.properties
-  sed -i -E "s/^(jdbc.password=).*/\1$MYSQL_PASSWORD/gm" jdbc.properties
+  sed -i -E "s|^(jdbc.schema=).*|\1$MYSQL_DATABASE|gm" jdbc.properties
+  sed -i -E "s|^(jdbc.username=).*|\1$MYSQL_USER|gm" jdbc.properties
+  sed -i -E "s|^(jdbc.password=).*|\1$MYSQL_PASSWORD|gm" jdbc.properties
   cp jdbc.properties ~/
 
   echo "---- Rebuilding ODKAggregate-settings.jar ----"
