@@ -4,6 +4,7 @@ MAINTAINER Sean Herman <sjh293@cornell.edu>
 ENV BUILD_DEPS='curl' \
     CONNECTORJ_MAJOR_VERSION='5' \
     CONNECTORJ_VERSION='5.1.38' \
+    MYSQL_HOSTNAME='localhost' \
     ODK_PORT='8080' \
     ODK_PORT_SECURE='8443' \
     ODK_HOSTNAME='localhost' \

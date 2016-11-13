@@ -1,27 +1,19 @@
-# Setup
+This repository contains the components necessary to create a basic Docker
+container for [ODK Aggregate](https://opendatakit.org/use/aggregate/) paired
+with MySQL. The image is based on a Tomcat6 image, and bundles an ODK Aggregate
+build retrieved February 2016.
 
-# Deploy
-This ODK Aggregate image must be paired with a MySQL container to function properly. The `deploy.sh` script provides a baseline for deployment of the ODK Aggregate server and its paired MySQL container, but further customization may be necessary.
+## TODO
 
-By default, the `deploy.sh` script will mount a volume from the MySQL container to the host machine at `~/data`. Set the `ODK_DB_HOST_PATH` environment variable on the host to change the storage destination of this volume on the host machine.
+As an alternative to bundling an ODK Aggregate WAR with this Docker image, it
+would be preferable to download a specific version as part of the build. It
+should also be possible to support versions of Tomcat >6.
 
-Certain environment variables are required with `docker run` or `deploy.sh`. These may either be set in the host environment, or provided directly to Docker (with -e, –env, or –env-file).
+# Instructions
+This ODK Aggregate image must be paired with a MySQL container to function
+properly. The `docker-compose.yml` configuration covers a basic integration of
+these 2 services, but may not be suitable for production. You override any of
+the environment variables listed in the Compose files with equivalents defined
+on your host.
 
-## MySQL environment variables
-The MySQL Docker [repository](https://hub.docker.com/_/mysql/) covers these environment variables in more detail. The ODK Aggregate web app requires that a database be available prior to launch, so certain variables optional in a default MySQL container (e.g., MYSQL_DATABASE) are required here.
-* MYSQL_ROOT_PASSWORD
-* MYSQL_USER
-* MYSQL_PASSWORD
-* MYSQL_DATABASE
-
-## ODK Aggregate environment variables
-The ODK host and port should correspond to the visible address of the server. If Aggregate is behind a reverse proxy, the hostname, protocol, and port should match the reverse proxy settings.
-
-* ODK_HOSTNAME
-* ODK_PORT (optional, default="8080")
-* ODK_PORT_SECURE (optional, default="8443")
-* ODK_ADMIN_USER (optional)
-* ODK_ADMIN_USERNAME (default password="aggregate")
-* ODK_AUTH_REALM (optional, default="ODK Aggregate")
-* AGGREGATE_CONTAINER_NAME (optional, default="aggregate")
-* DB_CONTAINER_NAME
+To create the ODK Aggregate and MySQL containers, run: `docker-compose up -d`

@@ -21,7 +21,7 @@ if [ ! -f /finished-setup ]; then
   echo "ODK_ADMIN_USER=$ODK_ADMIN_USER"
   echo "ODK_ADMIN_USERNAME=$ODK_ADMIN_USERNAME"
   echo "ODK_AUTH_REALM=$ODK_AUTH_REALM"
-  echo "DB_CONTAINER_NAME=$DB_CONTAINER_NAME"
+  echo "MYSQL_HOSTNAME=$MYSQL_HOSTNAME"
   echo "MYSQL_DATABASE=$MYSQL_DATABASE"
   echo "MYSQL_USER=$MYSQL_USER"
   echo "CATALINA_HOME=$CATALINA_HOME"
@@ -42,7 +42,7 @@ if [ ! -f /finished-setup ]; then
   cp security.properties ~/
 
   echo "---- Modifying ODK Aggregate jdbc.properties ----"
-  sed -i -E "s|^(jdbc.url=jdbc:mysql://).+(\?autoDeserialize=true)|\1$DB_CONTAINER_NAME/$MYSQL_DATABASE\2|gm" jdbc.properties
+  sed -i -E "s|^(jdbc.url=jdbc:mysql://).+(\?autoDeserialize=true)|\1$MYSQL_HOSTNAME/$MYSQL_DATABASE\2|gm" jdbc.properties
   sed -i -E "s|^(jdbc.url=jdbc:mysql:///)(.+)(\?autoDeserialize=true)|\1""\3|gm" jdbc.properties
   sed -i -E "s|^(jdbc.schema=).*|\1$MYSQL_DATABASE|gm" jdbc.properties
   sed -i -E "s|^(jdbc.username=).*|\1$MYSQL_USER|gm" jdbc.properties

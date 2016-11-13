@@ -1,0 +1,34 @@
+version: '2'
+services:
+  odk:
+    image: kharatsa/odkaggregate:latest
+    container_name: odk_aggregate
+    ports:
+      - "8080:${ODK_PORT}"
+      - "8443:${ODK_PORT_SECURE}"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      - ODK_HOSTNAME
+      - ODK_ADMIN_USERNAME
+      - ODK_AUTH_REALM
+      - ODK_PORT
+      - ODK_PORT_SECURE
+      - MYSQL_USER
+      - MYSQL_DATABASE
+      - MYSQL_PASSWORD
+      - MYSQL_HOSTNAME=mysql
+  mysql:
+    image: mysql:latest
+    container_name: mysql_odk
+    volumes:
+      - odkaggregate:/var/lib/mysql/
+    environment:
+      - MYSQL_USER
+      - MYSQL_DATABASE
+      - MYSQL_PASSWORD
+      - MYSQL_RANDOM_ROOT_PASSWORD=True
+volumes:
+  odkaggregate:
